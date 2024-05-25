@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string-array name="account_type">
+        <item>Select</item>
+        <item>Google</item>
+        <item>Linkedin</item>
+        <item>Twitter (X)</item>
+        <item>Facebook</item>
+        <item>Instagram</item>
+    </string-array>
+</resources>
+
+<!--"Google", "Linkedin", "Twitter", "Facebook", "Instagram"-->
