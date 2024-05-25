@@ -14,7 +14,6 @@
         android:text="Account Details"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@android:color/black"
         android:layout_marginBottom="16dp" />
 
     <TextView
@@ -23,7 +22,6 @@
         android:layout_height="wrap_content"
         android:text="Account Type"
         android:textSize="14sp"
-        android:textColor="@android:color/darker_gray"
         android:layout_marginBottom="4dp" />
 
     <TextView
@@ -32,7 +30,6 @@
         android:layout_height="wrap_content"
         android:text="Facebook"
         android:textSize="16sp"
-        android:textColor="@android:color/black"
         android:layout_marginBottom="16dp" />
 
     <TextView
@@ -41,7 +38,6 @@
         android:layout_height="wrap_content"
         android:text="Username/ Email"
         android:textSize="14sp"
-        android:textColor="@android:color/darker_gray"
         android:layout_marginBottom="4dp" />
 
     <TextView
@@ -50,7 +46,6 @@
         android:layout_height="wrap_content"
         android:text="Amitshah165@maill.com"
         android:textSize="16sp"
-        android:textColor="@android:color/black"
         android:layout_marginBottom="16dp" />
 
     <TextView
@@ -59,7 +54,6 @@
         android:layout_height="wrap_content"
         android:text="Password"
         android:textSize="14sp"
-        android:textColor="@android:color/darker_gray"
         android:layout_marginBottom="4dp" />
 
     <LinearLayout
@@ -74,8 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="********"
-            android:textSize="16sp"
-            android:textColor="@android:color/black" />
+            android:textSize="16sp"/>
 
         <ImageView
             android:id="@+id/password_visibility_toggle"
@@ -98,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Edit"
-            android:backgroundTint="@android:color/black"
+            android:backgroundTint="@android:color/holo_green_dark"
             android:textColor="@android:color/white" />
 
         <View

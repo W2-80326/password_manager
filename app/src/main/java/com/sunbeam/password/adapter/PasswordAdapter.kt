@@ -26,8 +26,7 @@ class PasswordAdapter(private var accountList:List<Account>, private var context
 
     override fun onBindViewHolder(holder: AccountViewHolder, position: Int) {
         var account = accountList[position]
-        holder.acc.text = account.acc
-        holder.pass.text = account.pass
+        holder.accType.text = account.acc_type
 
         holder.cardView.setOnClickListener {
             val bottomSheetDialog = BottomSheetDialog(context)
@@ -41,19 +40,18 @@ class PasswordAdapter(private var accountList:List<Account>, private var context
 
             acc_type.text = account.acc_type
             email.text = account.acc
-            pass.text = account.pass
 
 
-
+            bottomSheetDialog.show()
         }
     }
 
     inner class AccountViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val acc : TextView
+        val accType : TextView
         val pass : TextView
         val cardView : CardView
         init {
-            acc = itemView.findViewById(R.id.acc)
+            accType = itemView.findViewById(R.id.acc_type)
             pass = itemView.findViewById(R.id.pass)
             cardView = itemView.findViewById(R.id.cardview)
         }
