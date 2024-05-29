@@ -1,6 +1,7 @@
 package com.sunbeam.password.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.sunbeam.password.R
 import com.sunbeam.password.entity.Account
+import com.sunbeam.password.utility.CryptoUtils
+import com.sunbeam.password.utility.KeystoreUtils
 
 class PasswordAdapter(private var accountList:List<Account>, private var context: Context)
     : RecyclerView.Adapter<PasswordAdapter.AccountViewHolder>()
@@ -41,6 +44,25 @@ class PasswordAdapter(private var accountList:List<Account>, private var context
             acc_type.text = account.acc_type
             email.text = account.acc
 
+            var n = 0
+            val key = KeystoreUtils.getKey()
+            var decryptedPass = ""
+            if(key != null){
+                decryptedPass = CryptoUtils.decrypt(account.pass,key)
+            }
+            imgView.setOnClickListener {
+                if(n == 0) {
+
+                    pass.text = decryptedPass
+                    n++
+//                    Log.e("Pass","pass if " + n)
+                } else if(n == 1){
+                    pass.text = "********"
+                    n++
+//                    Log.e("Pass","pass else " + n)
+                }
+                n %= 2
+            }
 
             bottomSheetDialog.show()
         }

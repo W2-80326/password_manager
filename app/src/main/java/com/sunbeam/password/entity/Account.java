@@ -2,9 +2,18 @@ package com.sunbeam.password.entity;
 
 public class Account
 {
+    private int id;
     private String acc;
     private String pass;
     private String acc_type;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getAcc_type() {
         return acc_type;

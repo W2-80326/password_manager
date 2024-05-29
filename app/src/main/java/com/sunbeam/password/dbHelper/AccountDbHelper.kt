@@ -45,6 +45,7 @@ class AccountDbHelper(context: Context): SQLiteOpenHelper(context,"accounts_db",
         val cursor = db.query(table_name,null,null,null,null,null,null)
         while (cursor.moveToNext()){
             val account = Account()
+            account.id = cursor.getInt(0)
             account.acc_type = cursor.getString(1)
             account.acc = cursor.getString(2)
             account.pass = cursor.getString(3)
@@ -55,6 +56,23 @@ class AccountDbHelper(context: Context): SQLiteOpenHelper(context,"accounts_db",
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        return
+    }
 
+    fun onUpdate(account: Account): Int{
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(col_acc,account.acc)
+        contentValues.put(col_pass,account.pass)
+        val success = db.update(table_name,contentValues,"$col_id=?", arrayOf(account.id.toString()))
+        db.close()
+        return success
+    }
+
+    fun onDelete(id: Int): Int{
+        val db = this.writableDatabase
+        val success = db.delete(table_name,"$col_id=?", arrayOf(id.toString()))
+        db.close()
+        return success
     }
 }

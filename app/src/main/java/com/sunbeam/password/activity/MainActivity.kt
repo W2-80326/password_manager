@@ -20,6 +20,9 @@ import com.sunbeam.password.R
 import com.sunbeam.password.adapter.PasswordAdapter
 import com.sunbeam.password.dbHelper.AccountDbHelper
 import com.sunbeam.password.entity.Account
+import com.sunbeam.password.utility.CryptoUtils
+import com.sunbeam.password.utility.KeystoreUtils
+import javax.crypto.SecretKey
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,16 +31,20 @@ class MainActivity : AppCompatActivity() {
     private val accountList = ArrayList<Account>()
     private lateinit var recyclerview: RecyclerView
     private lateinit var adapter : PasswordAdapter
+    private lateinit var key : SecretKey
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recyclerview = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerview = findViewById(R.id.recyclerView)
         recyclerview.layoutManager = GridLayoutManager(this,1)
         adapter = PasswordAdapter(accountList,this)
         recyclerview.adapter = adapter
+
+        KeystoreUtils.generateKey()
+        key = KeystoreUtils.getKey()!!
 
         getAllData()
 
@@ -92,7 +99,10 @@ class MainActivity : AppCompatActivity() {
             val account = Account()
             account.acc_type = accountType
             account.acc = emailValue
-            account.pass = passValue
+            if(key != null){
+                val encryptedPass = CryptoUtils.encrypt(passValue,key)
+                account.pass = encryptedPass
+            }
             addAccount(account)
 
             // Add the new account to the list and notify the adapter
