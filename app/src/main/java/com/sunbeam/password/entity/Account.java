@@ -6,6 +6,15 @@ public class Account
     private String acc;
     private String pass;
     private String acc_type;
+    private String iv;
+
+    public String getIv() {
+        return iv;
+    }
+
+    public void setIv(String iv) {
+        this.iv = iv;
+    }
 
     public int getId() {
         return id;

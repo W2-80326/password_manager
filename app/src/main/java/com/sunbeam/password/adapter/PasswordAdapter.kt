@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -48,21 +49,25 @@ class PasswordAdapter(private var accountList:List<Account>, private var context
             val key = KeystoreUtils.getKey()
             var decryptedPass = ""
             if(key != null){
-                decryptedPass = CryptoUtils.decrypt(account.pass,key)
-            }
-            imgView.setOnClickListener {
-                if(n == 0) {
+                decryptedPass = CryptoUtils.decrypt(account.pass,key,account.iv)
+                imgView.setOnClickListener {
+                    if(n == 0) {
 
-                    pass.text = decryptedPass
-                    n++
+                        pass.text = decryptedPass
+                        n++
 //                    Log.e("Pass","pass if " + n)
-                } else if(n == 1){
-                    pass.text = "********"
-                    n++
+                    } else if(n == 1){
+                        pass.text = "********"
+                        n++
 //                    Log.e("Pass","pass else " + n)
+                    }
+                    n %= 2
                 }
-                n %= 2
             }
+            else{
+                Toast.makeText(context,"Key Error",Toast.LENGTH_SHORT)
+            }
+
 
             bottomSheetDialog.show()
         }

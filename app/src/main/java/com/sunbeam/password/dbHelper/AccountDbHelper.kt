@@ -14,6 +14,7 @@ class AccountDbHelper(context: Context): SQLiteOpenHelper(context,"accounts_db",
         private const val col_acc_type = "acc_type"
         private const val col_acc = "acc"
         private const val col_pass = "pass"
+        private const val col_iv = "iv"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -21,7 +22,8 @@ class AccountDbHelper(context: Context): SQLiteOpenHelper(context,"accounts_db",
                             +"$col_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                             "$col_acc_type TEXT, " +
                             "$col_acc TEXT, " +
-                            "$col_pass TEXT)")
+                            "$col_pass TEXT, " +
+                            "$col_iv TEXT)")
         if (db != null) {
             db.execSQL(createTable)
         }
@@ -33,6 +35,7 @@ class AccountDbHelper(context: Context): SQLiteOpenHelper(context,"accounts_db",
         contentValues.put(col_acc_type,account.acc_type)
         contentValues.put(col_acc,account.acc)
         contentValues.put(col_pass,account.pass)
+        contentValues.put(col_iv,account.iv)
         val success = db.insert(table_name,null,contentValues)
         db.close()
         return success
@@ -49,6 +52,7 @@ class AccountDbHelper(context: Context): SQLiteOpenHelper(context,"accounts_db",
             account.acc_type = cursor.getString(1)
             account.acc = cursor.getString(2)
             account.pass = cursor.getString(3)
+            account.iv = cursor.getString(4)
             accountList.add(account)
         }
         cursor.close()

@@ -18,7 +18,7 @@ object KeystoreUtils
             KEY_ALIAS,
             KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
         )
-            .setBlockModes(KeyProperties.BLOCK_MODE_ECB)
+            .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
             .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7)
             .setRandomizedEncryptionRequired(true)
             .build()

@@ -87,29 +87,37 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        add_btn.setOnClickListener {
-            val emailValue = email.editText?.text.toString()
-            val passValue = pass.editText?.text.toString()
+        Log.e("Main","$key keyyyyyyyyy")
+        if(key != null) {
+            add_btn.setOnClickListener {
+                val emailValue = email.editText?.text.toString()
+                val passValue = pass.editText?.text.toString()
 
-            if (accountType == defaultValue) {
-                Toast.makeText(this, "Please select a valid account type", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+                if (accountType == defaultValue) {
+                    Toast.makeText(this, "Please select a valid account type", Toast.LENGTH_SHORT)
+                        .show()
+                    return@setOnClickListener
+                }
+
+                val account = Account()
+                account.acc_type = accountType
+                account.acc = emailValue
+
+                val (encrytedPass, iv) = CryptoUtils.encrypt(passValue, key)
+                account.pass = encrytedPass
+                account.iv = iv
+
+                addAccount(account)
+
+                // Add the new account to the list and notify the adapter
+                accountList.add(account)
+                recyclerview.adapter?.notifyItemInserted(accountList.size - 1)
+
+                bottomSheetDialog.dismiss() // Dismiss the dialog after adding the account
             }
-
-            val account = Account()
-            account.acc_type = accountType
-            account.acc = emailValue
-            if(key != null){
-                val encryptedPass = CryptoUtils.encrypt(passValue,key)
-                account.pass = encryptedPass
-            }
-            addAccount(account)
-
-            // Add the new account to the list and notify the adapter
-            accountList.add(account)
-            recyclerview.adapter?.notifyItemInserted(accountList.size - 1)
-
-            bottomSheetDialog.dismiss() // Dismiss the dialog after adding the account
+        }
+        else {
+            Toast.makeText(this,"Key Generation Error",Toast.LENGTH_SHORT)
         }
 
         bottomSheetDialog.show()
